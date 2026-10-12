@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To-Do</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="card wide">
+    <div class="topbar">
+        <h1>To-Do</h1>
+        <div>Hi, {{ name }} <a href="/logout"><button type="button" class="ghost">Log out</button></a></div>
+    </div>
+
+    <ul id="errors">
+        {% if errors %}
+            {% for e in errors %}
+            <li>{{ e }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+
+    <form method="POST" action="/todos/add" class="add-form">
+        <input type="text" name="title" placeholder="What needs to be done?" value="{{ new_title or '' }}">
+        <button type="submit">Add</button>
+    </form>
+
+    {% if todos %}
+        {% for t in todos %}
+        <div class="todo {{ 'done' if t.is_done else '' }}">
+            <form method="POST" action="/todos/{{ t.todo_id }}/toggle">
+                <input type="hidden" name="is_done" value="{{ 0 if t.is_done else 1 }}">
+                <button type="submit" class="ghost">{{ '☑' if t.is_done else '☐' }}</button>
+            </form>
+
+            <form method="POST" action="/todos/{{ t.todo_id }}/edit" class="edit-form">
+                <input type="text" name="title" value="{{ t.title }}">
+                <button type="submit">Save</button>
+            </form>
+
+            <form method="POST" action="/todos/{{ t.todo_id }}/delete"
+                  onsubmit="return confirm('Are you sure?')">
+                <button type="submit" class="danger">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty">No to-dos yet. Add your first one above! ✨</p>
+    {% endif %}
+</div>
+
+<script>
+function checkTitle(title) {
+    if (!title.trim()) return "Title is required";
+    if (title.length > 200) return "Title is too long (200 characters at most)";
+    return null;
+}
+
+document.querySelectorAll('form input[name="title"]').forEach(function (input) {
+    input.form.addEventListener("submit", function (e) {
+        const msg = checkTitle(input.value);
+        if (msg) {
+            e.preventDefault();
+            document.getElementById("errors").innerHTML = "<li>" + msg + "</li>";
+        }
+    });
+});
+</script>
+</body>
+</html>

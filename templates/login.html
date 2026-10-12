@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="card">
+    <h1>Login</h1>
+
+    <ul id="errors">
+        {% if errors %}
+            {% for e in errors %}
+            <li>{{ e }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+
+    <form method="POST" action="/login" id="loginForm">
+        <label>Email</label>
+        <input type="text" name="email" value="{{ email or '' }}">
+
+        <label>Password</label>
+        <input type="password" name="password">
+
+        <button type="submit" class="full">Login</button>
+    </form>
+    <p>No account? <a href="/register">Register</a></p>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+    const f = e.target;
+    const errors = [];
+
+    if (!f.email.value.trim()) errors.push("Email is required");
+    if (!f.password.value) errors.push("Password is required");
+
+    if (errors.length > 0) {
+        e.preventDefault();
+        document.getElementById("errors").innerHTML =
+            errors.map(m => "<li>" + m + "</li>").join("");
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+* { box-sizing: border-box; }
+
+body {
+    font-family: system-ui, Arial, sans-serif;
+    background: #f3f4f8;
+    color: #222;
+    margin: 0;
+    padding: 16px;
+}
+
+.card {
+    max-width: 480px;
+    margin: 32px auto;
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card.wide { max-width: 640px; }
+
+h1 { margin-top: 0; color: #3b3fa8; }
+
+label { display: block; margin: 12px 0 4px; font-weight: 600; }
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #c8cad6;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input:focus { outline: 2px solid #6c70e0; border-color: transparent; }
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #4f54d6;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover { background: #3b3fa8; }
+button.danger { background: #d64545; }
+button.danger:hover { background: #b03030; }
+button.ghost { background: #e4e5f4; color: #3b3fa8; }
+
+.full { width: 100%; margin-top: 16px; }
+
+#errors { list-style: none; padding: 0; margin: 0 0 12px; }
+#errors li {
+    background: #fde8e8;
+    color: #a32121;
+    border-left: 4px solid #d64545;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.add-form { display: flex; gap: 8px; margin-bottom: 16px; }
+.add-form input { flex: 1; }
+
+.todo {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eceef5;
+}
+.todo form { margin: 0; display: flex; gap: 6px; }
+.todo .edit-form { flex: 1; }
+.todo .edit-form input { flex: 1; min-width: 0; }
+.todo.done input[name="title"] { text-decoration: line-through; color: #888; background: #f0f1f6; }
+
+.empty { text-align: center; color: #777; padding: 24px 0; }
+
+@media (max-width: 480px) {
+    body { padding: 8px; }
+    .card { margin: 8px auto; padding: 16px; }
+    .todo { flex-wrap: wrap; }
+    .todo .edit-form { flex-basis: 100%; order: 3; }
+}

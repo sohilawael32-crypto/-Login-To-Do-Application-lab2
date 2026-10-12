@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="card">
+    <h1>Register</h1>
+
+    <ul id="errors">
+        {% if errors %}
+            {% for e in errors %}
+            <li>{{ e }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+
+    <form method="POST" action="/register" id="regForm">
+        <label>Name</label>
+        <input type="text" name="name" value="{{ name or '' }}">
+
+        <label>Email</label>
+        <input type="text" name="email" value="{{ email or '' }}">
+
+        <label>Password</label>
+        <input type="password" name="password">
+
+        <label>Confirm password</label>
+        <input type="password" name="confirm_password">
+
+        <button type="submit" class="full">Register</button>
+    </form>
+    <p>Already have an account? <a href="/login">Login</a></p>
+</div>
+
+<script>
+document.getElementById("regForm").addEventListener("submit", function (e) {
+    const f = e.target;
+    const errors = [];
+
+    if (!f.name.value.trim()) errors.push("Name is required");
+    if (!f.email.value.trim()) errors.push("Email is required");
+    if (!f.password.value) errors.push("Password is required");
+    if (!f.confirm_password.value) errors.push("Confirm password is required");
+    if (f.password.value && f.confirm_password.value &&
+        f.password.value !== f.confirm_password.value) {
+        errors.push("Passwords do not match");
+    }
+
+    if (errors.length > 0) {
+        e.preventDefault();
+        document.getElementById("errors").innerHTML =
+            errors.map(m => "<li>" + m + "</li>").join("");
+    }
+});
+</script>
+</body>
+</html>
