@@ -27,6 +27,11 @@
     </form>
 
     {% if todos %}
+     {% set open_count = todos | rejectattr('is_done') | list | length %}
+     <p><strong>{{ open_count }}</strong> open to-do(s)</p>
+    {% endif %}
+
+    {% if todos %}
         {% for t in todos %}
         <div class="todo {{ 'done' if t.is_done else '' }}">
             <form method="POST" action="/todos/{{ t.todo_id }}/toggle">
