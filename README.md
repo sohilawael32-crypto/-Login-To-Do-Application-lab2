@@ -4,9 +4,22 @@
 # -->student 1 
 name : Sohila Wael 
 id : 2304073
+- Wrote `database/schema.sql` (both tables and the foreign key).
+- R1: Register with a duplicate e-mail check (`Email Already Exists`).
+- R2: Login with the same message for a wrong e-mail or password, and logout.
+- R3: Private list; redirect to the login page when not logged in.
+- R9: bcrypt password hashing, parameterized queries, `user_id` from the session.
+- R8 (part): validation of the register and login forms in the browser and on the server.
+- Screenshots and README sections.
 # -->student 2
 name : Omar Mohamed
 id :2304093
+- R4 to R7: add, edit, mark done/not done, delete (with confirmation), using `AND user_id = ?`.
+- R8 (part): validation of the to-do title in the browser and on the server.
+- R10: consistent styling, 360 px responsive layout, empty-list message, done state.
+- Bonus: counter of open to-dos.
+
+
 
 ## 2. Technology:
 - Back end: Python 3 with Flask. Passwords are hashed with `bcrypt`. MySQL is accessed with `PyMySQL` using plain SQL with parameters (no ORM).
